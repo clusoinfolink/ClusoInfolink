@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { HeroBanner } from '@/components/sections/HeroBanner';
 import { BlogCard } from '@/components/sections/BlogCard';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';

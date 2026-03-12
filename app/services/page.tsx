@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Metadata } from 'next';
 import dbConnect from '@/lib/mongodb';
 import Service from '@/lib/models/Service';
