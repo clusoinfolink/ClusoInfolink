@@ -2,14 +2,15 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { GlassButton } from '@/components/ui/GlassButton';
+import clusoLogo from '@/assets/Cluso-Infolink-removebg-preview.png';
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
-  { href: '/team', label: 'Team' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -22,9 +23,13 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="font-heading text-2xl font-bold text-cluso-deep">Cluso</span>
-            <span className="font-heading text-2xl font-light text-gray-600">Infolink</span>
+          <Link href="/" className="flex items-center" aria-label="Cluso Infolink home">
+            <Image
+              src={clusoLogo}
+              alt="Cluso Infolink"
+              priority
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -38,7 +43,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact">
+            <Link href="/getstarted">
               <GlassButton variant="primary" className="text-sm px-4 py-2">
                 Get Started
               </GlassButton>
@@ -70,7 +75,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" onClick={() => setMobileOpen(false)}>
+            <Link href="/getstarted" onClick={() => setMobileOpen(false)}>
               <GlassButton variant="primary" className="w-full text-center mt-2">
                 Get Started
               </GlassButton>

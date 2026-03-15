@@ -2,16 +2,36 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { GlassButton } from '@/components/ui/GlassButton';
+import heroBG from '@/assets/HeroBG.png';
 
-export function HeroBanner() {
+const FALLBACK_HERO_BACKGROUND_IMAGE = heroBG;
+
+interface HeroBannerProps {
+  backgroundImage?: string;
+}
+
+export function HeroBanner({ backgroundImage }: HeroBannerProps) {
+  const heroImage = backgroundImage || FALLBACK_HERO_BACKGROUND_IMAGE;
+  const isDataUrl = typeof heroImage === 'string' && heroImage.startsWith('data:');
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-cluso-deep via-cluso-mid to-cluso-sky" />
+      {/* Background Image */}
+      <Image
+        src={heroImage}
+        alt="Cluso background"
+        fill
+        priority
+        className="object-cover"
+        unoptimized={isDataUrl}
+      />
       {/* Dark Glass Overlay */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/45 backdrop-blur-[2px]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
         <AnimatedSection direction="left">
@@ -28,7 +48,7 @@ export function HeroBanner() {
         </AnimatedSection>
 
         <AnimatedSection direction="up" delay={0.4}>
-          <Link href="/contact">
+          <Link href="/getstarted">
             <GlassButton variant="primary" className="text-lg px-8 py-4">
               Get started today
             </GlassButton>
