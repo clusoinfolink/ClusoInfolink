@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/getstarted',
+        destination: '/get-started',
+        permanent: false,
+      },
+      {
+        source: '/getstarted/',
+        destination: '/get-started',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
