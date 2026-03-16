@@ -29,6 +29,13 @@ body {
   font-family: var(--font-body);
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Glassmorphism utilities */
 .glass {
   background: rgba(255, 255, 255, 0.1);
@@ -63,4 +70,116 @@ body {
 
 .font-body {
   font-family: var(--font-body);
+}
+
+.company-slider-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(79, 161, 240, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 0%, rgba(154, 235, 252, 0.2), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  padding: 4rem 0 2.75rem;
+  border-top: 1px solid rgba(59, 123, 214, 0.12);
+  border-bottom: 1px solid rgba(59, 123, 214, 0.12);
+}
+
+.company-slider-section::before,
+.company-slider-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(2rem, 8vw, 6rem);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.company-slider-section::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.company-slider-section::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.company-slider-wrap {
+  overflow: hidden;
+  padding: 0 clamp(0.25rem, 2vw, 1rem);
+}
+
+.company-slider-wrap .slick-list {
+  overflow: hidden;
+}
+
+.company-slider-wrap .slick-track {
+  display: flex;
+  align-items: center;
+}
+
+.company-slider-wrap .slick-slide {
+  padding: 0 clamp(0.35rem, 1vw, 0.75rem);
+}
+
+.company-slide-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 3.7rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid rgba(59, 123, 214, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1f2d3d;
+  box-shadow: 0 10px 20px rgba(59, 123, 214, 0.08);
+}
+
+.company-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(59, 123, 214, 0.14);
+  color: #1f4f90;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.company-name {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.company-slider-caption {
+  text-align: center;
+  color: #304861;
+  font-size: 1rem;
+  margin: 2rem 0 0;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .company-slider-section {
+    padding: 3rem 0 2rem;
+  }
+
+  .company-slide-item {
+    min-height: 3.2rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .company-slider-wrap .slick-track {
+    transition: none !important;
+  }
 }

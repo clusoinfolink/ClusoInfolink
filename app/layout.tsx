@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -27,6 +29,17 @@ export const metadata: Metadata = {
     "identity check",
     "Cluso Infolink",
   ],
+  icons: {
+    icon: "/icon.png?v=20260316",
+    shortcut: "/icon.png?v=20260316",
+    apple: "/apple-icon.png?v=20260316",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
