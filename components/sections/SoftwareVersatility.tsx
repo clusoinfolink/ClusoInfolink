@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { Layers } from 'lucide-react';
+import seamlessIntegrationImage from '@/assets/Cluso Seamless Integration gold.png';
 
 export function SoftwareVersatility() {
   return (
@@ -12,12 +14,13 @@ export function SoftwareVersatility() {
           {/* Image Left */}
           <AnimatedSection direction="left">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-cluso-deep to-cluso-mid">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <Layers size={64} className="mx-auto mb-4 opacity-80" />
-                  <p className="text-xl font-heading font-semibold">Seamless Integration</p>
-                </div>
-              </div>
+              <Image
+                src={seamlessIntegrationImage}
+                alt="Seamless Integration"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
             {/* Green accent bar */}
             <div className="h-1 w-full bg-cluso-green rounded-full mt-4" />

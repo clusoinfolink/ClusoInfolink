@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { Zap } from 'lucide-react';
+import speedImage from '@/assets/Speed.png';
 
 export function SoftwareSpeed() {
   return (
@@ -38,12 +40,13 @@ export function SoftwareSpeed() {
           {/* Image Right */}
           <AnimatedSection direction="right" delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-cluso-mid to-cluso-sky">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <Zap size={64} className="mx-auto mb-4 opacity-80" />
-                  <p className="text-xl font-heading font-semibold">Lightning Fast Verification</p>
-                </div>
-              </div>
+              <Image
+                src={speedImage}
+                alt="Lightning Fast Verification"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </AnimatedSection>
         </div>

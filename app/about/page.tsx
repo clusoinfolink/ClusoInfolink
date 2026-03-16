@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Shield, Eye, Target, Award, Clock, Users } from 'lucide-react';
+import ourMissionImage from '@/assets/Our Mission.png';
 
 export const metadata: Metadata = {
   title: 'About Us — Cluso Infolink',
@@ -49,7 +51,7 @@ const milestones = [
   { year: '2023', event: 'Introduced AI-powered verification and real-time monitoring capabilities.' },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -92,14 +94,13 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-cluso-light/20 to-cluso-sky/20">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Eye size={80} className="mx-auto mb-6 text-cluso-deep/40" />
-                  <p className="font-heading text-2xl font-bold text-cluso-deep/60 italic">
-                    &ldquo;Let&apos;s Make It Transparent&rdquo;
-                  </p>
-                </div>
-              </div>
+              <Image
+                src={ourMissionImage}
+                alt="Our mission"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
         </div>

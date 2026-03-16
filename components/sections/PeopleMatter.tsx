@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Heart, ShieldCheck } from 'lucide-react';
+import peopleFirstImage from '@/assets/People First.png';
 
 export function PeopleMatter() {
   return (
@@ -50,12 +52,13 @@ export function PeopleMatter() {
           {/* Right: Image placeholder */}
           <AnimatedSection direction="up" delay={0.2}>
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-cluso-peach/30 to-cluso-cream/30">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <Heart size={64} className="mx-auto mb-4 text-cluso-deep/30" />
-                  <p className="text-cluso-deep/50 text-lg font-heading font-semibold">People First</p>
-                </div>
-              </div>
+              <Image
+                src={peopleFirstImage}
+                alt="People First"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </AnimatedSection>
         </div>

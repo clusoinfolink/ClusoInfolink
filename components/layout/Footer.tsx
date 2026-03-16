@@ -7,7 +7,6 @@ const footerLinks = {
   about: [
     { label: 'Our Culture', href: '/about' },
     { label: 'Our History', href: '/about' },
-    { label: 'Our Team', href: '/team' },
   ],
   resources: [
     { label: 'Services', href: '/services' },
@@ -79,25 +78,14 @@ export async function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="font-heading text-lg font-semibold mb-4">Contact Us</h4>
-              <ul className="space-y-2">
-                {settings.contactEmail && (
-                  <li>
-                    <a
-                      href={`mailto:${settings.contactEmail}`}
-                      className="text-white/70 hover:text-cluso-sky transition-colors text-sm"
-                    >
-                      {settings.contactEmail}
-                    </a>
-                  </li>
-                )}
-                {settings.contactPhone && (
-                  <li className="text-white/70 text-sm">{settings.contactPhone}</li>
-                )}
-                {settings.address && (
-                  <li className="text-white/70 text-sm">{settings.address}</li>
-                )}
-              </ul>
+              <h4 className="font-heading text-lg font-semibold mb-4">
+                <Link href="/contact" className="hover:text-cluso-sky transition-colors">
+                  Contact Us
+                </Link>
+              </h4>
+              <p className="text-white/70 text-sm">
+                Use the contact form to reach the right department quickly.
+              </p>
             </div>
           </div>
 

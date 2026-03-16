@@ -3,22 +3,23 @@
 import React, { useState } from 'react';
 import { GlassButton } from '@/components/ui/GlassButton';
 import { GlassInput } from '@/components/ui/GlassInput';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { contactFormSchema } from '@/lib/validations/contact';
+import { Send } from 'lucide-react';
+import { contactDepartments, contactFormSchema } from '@/lib/validations/contact';
 
-interface ContactFormProps {
-  contactEmail: string;
-  contactPhone: string;
-  address: string;
-  siteName: string;
-}
-
-export function ContactForm({ contactEmail, contactPhone, address, siteName }: ContactFormProps) {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+export function ContactForm() {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    companyName: '',
+    phone: '',
+    subject: '',
+    department: 'others' as (typeof contactDepartments)[number],
+    message: '',
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
   };
@@ -46,7 +47,7 @@ export function ContactForm({ contactEmail, contactPhone, address, siteName }: C
       });
       if (res.ok) {
         setStatus('success');
-        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+        setForm({ name: '', email: '', companyName: '', phone: '', subject: '', department: 'others', message: '' });
       } else {
         setStatus('error');
       }
@@ -56,11 +57,9 @@ export function ContactForm({ contactEmail, contactPhone, address, siteName }: C
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-      {/* Form */}
-      <div className="lg:col-span-2">
-        <div className="glass p-8">
-          <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
+    <div className="max-w-4xl">
+      <div className="glass p-8">
+        <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
 
           {status === 'success' && (
             <div className="bg-cluso-green/10 text-cluso-green border border-cluso-green/20 rounded-xl p-4 mb-6">
@@ -74,122 +73,101 @@ export function ContactForm({ contactEmail, contactPhone, address, siteName }: C
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
-                <GlassInput
-                  label="Name *"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Your name"
-                />
-                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-              </div>
-              <div>
-                <GlassInput
-                  label="Email *"
-                  name="email"
-                  type="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="your@email.com"
-                />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <GlassInput
-                label="Phone"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="+91 XXXXX XXXXX"
-              />
-              <GlassInput
-                label="Subject"
-                name="subject"
-                value={form.subject}
-                onChange={handleChange}
-                placeholder="How can we help?"
-              />
-            </div>
-
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Message *</label>
-              <textarea
-                name="message"
-                value={form.message}
+              <GlassInput
+                label="Name *"
+                name="name"
+                value={form.name}
                 onChange={handleChange}
-                rows={5}
-                className="w-full bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50 focus:border-cluso-mid/50 transition-all resize-none"
-                placeholder="Tell us about your requirements..."
+                placeholder="Your name"
               />
-              {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
             </div>
+            <div>
+              <GlassInput
+                label="Email *"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="your@email.com"
+              />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+            </div>
+          </div>
 
-            <GlassButton
-              type="submit"
-              variant="primary"
-              className="flex items-center gap-2"
-              disabled={status === 'sending'}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <GlassInput
+              label="Company name"
+              name="companyName"
+              value={form.companyName}
+              onChange={handleChange}
+              placeholder="Your company"
+            />
+            <GlassInput
+              label="Phone"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="+91 XXXXX XXXXX"
+            />
+          </div>
+
+          <div>
+            <GlassInput
+              label="Subject"
+              name="subject"
+              value={form.subject}
+              onChange={handleChange}
+              placeholder="How can we help?"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-1">
+              Department
+            </label>
+            <select
+              id="department"
+              name="department"
+              value={form.department}
+              onChange={handleChange}
+              className="w-full bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50 focus:border-cluso-mid/50 transition-all"
             >
-              <Send size={16} />
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
-            </GlassButton>
-          </form>
-        </div>
-      </div>
-
-      {/* Sidebar Info */}
-      <div className="space-y-6">
-        {contactEmail && (
-          <div className="glass p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-cluso-deep/10 flex items-center justify-center shrink-0">
-                <Mail className="text-cluso-deep" size={18} />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-gray-900 mb-1">Email</h3>
-                <a href={`mailto:${contactEmail}`} className="text-cluso-deep hover:text-cluso-mid transition-colors text-sm">
-                  {contactEmail}
-                </a>
-              </div>
-            </div>
+              {contactDepartments.map((dept) => (
+                <option key={dept} value={dept}>
+                  {dept === 'hr' ? 'HR' : dept.charAt(0).toUpperCase() + dept.slice(1)}
+                </option>
+              ))}
+            </select>
+            {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
           </div>
-        )}
 
-        {contactPhone && (
-          <div className="glass p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-cluso-deep/10 flex items-center justify-center shrink-0">
-                <Phone className="text-cluso-deep" size={18} />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-gray-900 mb-1">Phone</h3>
-                <p className="text-gray-600 text-sm">{contactPhone}</p>
-              </div>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              rows={5}
+              className="w-full bg-white/60 backdrop-blur-md border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50 focus:border-cluso-mid/50 transition-all resize-none"
+              placeholder="Tell us about your requirements..."
+            />
+            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
           </div>
-        )}
 
-        {(address || siteName) && (
-          <div className="glass p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-cluso-deep/10 flex items-center justify-center shrink-0">
-                <MapPin className="text-cluso-deep" size={18} />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-gray-900 mb-1">Office</h3>
-                <p className="text-gray-600 text-sm">
-                  {siteName && <>{siteName}<br /></>}
-                  {address}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+          <GlassButton
+            type="submit"
+            variant="primary"
+            className="flex items-center gap-2"
+            disabled={status === 'sending'}
+          >
+            <Send size={16} />
+            {status === 'sending' ? 'Sending...' : 'Send Message'}
+          </GlassButton>
+        </form>
       </div>
     </div>
   );

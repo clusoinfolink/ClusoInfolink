@@ -41,6 +41,7 @@ export function BlogCard({ title, excerpt, author, category, slug, coverImage }:
               alt={title}
               fill
               className="object-cover"
+              unoptimized={coverImage.startsWith('data:')}
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-cluso-deep to-cluso-sky flex items-center justify-center">

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { getSiteSettings } from '@/lib/settings';
 import { ContactForm } from '@/components/sections/ContactForm';
 
 export const metadata: Metadata = {
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function ContactPage() {
-  const settings = await getSiteSettings();
-
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -30,12 +27,7 @@ export default async function ContactPage() {
       {/* Contact Form + Info */}
       <section className="py-20 bg-[#f5f5f0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ContactForm
-            contactEmail={settings.contactEmail}
-            contactPhone={settings.contactPhone}
-            address={settings.address}
-            siteName={settings.siteName}
-          />
+          <ContactForm />
         </div>
       </section>
     </div>

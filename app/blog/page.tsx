@@ -18,6 +18,7 @@ async function getPosts() {
   try {
     await dbConnect();
     const posts = await BlogPost.find({ published: true })
+      .select('title slug excerpt category createdAt coverImage')
       .sort({ createdAt: -1 })
       .lean();
     return JSON.parse(JSON.stringify(posts));
@@ -59,6 +60,7 @@ export default async function BlogPage() {
                         alt={post.title}
                         fill
                         className="object-cover"
+                        unoptimized={post.coverImage.startsWith('data:')}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
