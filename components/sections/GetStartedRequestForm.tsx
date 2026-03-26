@@ -15,6 +15,63 @@ const heardAboutOptions = [
 
 const annualVolumeOptions = ['1-50 checks', '51-200 checks', '201-500 checks', '501-1,000 checks', '1,000+ checks'];
 
+const phoneCountryCodeOptions = [
+  { country: 'India', code: '+91' },
+  { country: 'United States', code: '+1' },
+  { country: 'Canada', code: '+1' },
+  { country: 'United Kingdom', code: '+44' },
+  { country: 'Australia', code: '+61' },
+  { country: 'New Zealand', code: '+64' },
+  { country: 'United Arab Emirates', code: '+971' },
+  { country: 'Saudi Arabia', code: '+966' },
+  { country: 'Qatar', code: '+974' },
+  { country: 'Kuwait', code: '+965' },
+  { country: 'Oman', code: '+968' },
+  { country: 'Bahrain', code: '+973' },
+  { country: 'Singapore', code: '+65' },
+  { country: 'Malaysia', code: '+60' },
+  { country: 'Indonesia', code: '+62' },
+  { country: 'Thailand', code: '+66' },
+  { country: 'Philippines', code: '+63' },
+  { country: 'Vietnam', code: '+84' },
+  { country: 'Japan', code: '+81' },
+  { country: 'South Korea', code: '+82' },
+  { country: 'China', code: '+86' },
+  { country: 'Hong Kong', code: '+852' },
+  { country: 'Taiwan', code: '+886' },
+  { country: 'Sri Lanka', code: '+94' },
+  { country: 'Bangladesh', code: '+880' },
+  { country: 'Nepal', code: '+977' },
+  { country: 'Pakistan', code: '+92' },
+  { country: 'Afghanistan', code: '+93' },
+  { country: 'Germany', code: '+49' },
+  { country: 'France', code: '+33' },
+  { country: 'Italy', code: '+39' },
+  { country: 'Spain', code: '+34' },
+  { country: 'Netherlands', code: '+31' },
+  { country: 'Belgium', code: '+32' },
+  { country: 'Switzerland', code: '+41' },
+  { country: 'Austria', code: '+43' },
+  { country: 'Sweden', code: '+46' },
+  { country: 'Norway', code: '+47' },
+  { country: 'Denmark', code: '+45' },
+  { country: 'Ireland', code: '+353' },
+  { country: 'Portugal', code: '+351' },
+  { country: 'Poland', code: '+48' },
+  { country: 'Turkey', code: '+90' },
+  { country: 'Russia', code: '+7' },
+  { country: 'South Africa', code: '+27' },
+  { country: 'Nigeria', code: '+234' },
+  { country: 'Kenya', code: '+254' },
+  { country: 'Egypt', code: '+20' },
+  { country: 'Brazil', code: '+55' },
+  { country: 'Argentina', code: '+54' },
+  { country: 'Mexico', code: '+52' },
+  { country: 'Chile', code: '+56' },
+  { country: 'Colombia', code: '+57' },
+  { country: 'Peru', code: '+51' },
+];
+
 const countryOptions = [
   'Afghanistan',
   'Albania',
@@ -357,6 +414,21 @@ export function GetStartedRequestForm() {
     formData.delete('companyDocuments');
     formData.delete('requirementDocuments');
 
+    const composePhoneNumber = (countryCodeKey: string, numberKey: string) => {
+      const selectedCode = String(formData.get(countryCodeKey) || '').trim();
+      const number = String(formData.get(numberKey) || '').trim();
+      if (!number) return;
+      formData.set(numberKey, selectedCode ? `${selectedCode} ${number}` : number);
+    };
+
+    composePhoneNumber('officePhoneCountryCode', 'officePhone');
+    composePhoneNumber('mobileNumberCountryCode', 'mobileNumber');
+    composePhoneNumber('whatsappNumberCountryCode', 'whatsappNumber');
+
+    formData.delete('officePhoneCountryCode');
+    formData.delete('mobileNumberCountryCode');
+    formData.delete('whatsappNumberCountryCode');
+
     companyFiles.forEach((file) => {
       formData.append('companyDocuments', file, file.name);
     });
@@ -467,9 +539,39 @@ export function GetStartedRequestForm() {
                 <div><label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label><input id="lastName" name="lastName" required placeholder="Last name" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div><label htmlFor="designation" className="block text-sm font-medium text-gray-700 mb-1">Designation / Title *</label><input id="designation" name="designation" required placeholder="e.g., HR Manager, Director" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div><label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label><input id="contactEmail" name="contactEmail" type="email" required placeholder="name@company.com" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="officePhone" className="block text-sm font-medium text-gray-700 mb-1">Office Phone (with STD)</label><input id="officePhone" name="officePhone" placeholder="0XX-XXXXXXXX" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700 mb-1">Mobile Number *</label><input id="mobileNumber" name="mobileNumber" required placeholder="+91 XXXXX XXXXX" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div className="md:col-span-2"><label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number (if different)</label><input id="whatsappNumber" name="whatsappNumber" placeholder="+91 XXXXX XXXXX" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div>
+                  <label htmlFor="officePhone" className="block text-sm font-medium text-gray-700 mb-1">Office Phone (with STD)</label>
+                  <div className="grid grid-cols-[140px_minmax(0,1fr)] gap-2">
+                    <select name="officePhoneCountryCode" defaultValue="+91" className="rounded-xl border border-gray-200 bg-white px-3 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50">
+                      {phoneCountryCodeOptions.map((item) => (
+                        <option key={`office-${item.country}-${item.code}`} value={item.code}>{`${item.country} (${item.code})`}</option>
+                      ))}
+                    </select>
+                    <input id="officePhone" name="officePhone" type="tel" placeholder="Phone number" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700 mb-1">Mobile Number *</label>
+                  <div className="grid grid-cols-[140px_minmax(0,1fr)] gap-2">
+                    <select name="mobileNumberCountryCode" defaultValue="+91" className="rounded-xl border border-gray-200 bg-white px-3 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50">
+                      {phoneCountryCodeOptions.map((item) => (
+                        <option key={`mobile-${item.country}-${item.code}`} value={item.code}>{`${item.country} (${item.code})`}</option>
+                      ))}
+                    </select>
+                    <input id="mobileNumber" name="mobileNumber" type="tel" required placeholder="Phone number" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" />
+                  </div>
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="whatsappNumber" className="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number (if different)</label>
+                  <div className="grid grid-cols-[140px_minmax(0,1fr)] gap-2">
+                    <select name="whatsappNumberCountryCode" defaultValue="+91" className="rounded-xl border border-gray-200 bg-white px-3 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50">
+                      {phoneCountryCodeOptions.map((item) => (
+                        <option key={`whatsapp-${item.country}-${item.code}`} value={item.code}>{`${item.country} (${item.code})`}</option>
+                      ))}
+                    </select>
+                    <input id="whatsappNumber" name="whatsappNumber" type="tel" placeholder="Phone number" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" />
+                  </div>
+                </div>
               </div>
             </div>
 
