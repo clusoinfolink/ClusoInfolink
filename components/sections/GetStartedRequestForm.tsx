@@ -2,45 +2,6 @@
 
 import { useRef, useState } from 'react';
 
-const indiaStatesAndUTs = [
-  'Andhra Pradesh',
-  'Arunachal Pradesh',
-  'Assam',
-  'Bihar',
-  'Chhattisgarh',
-  'Goa',
-  'Gujarat',
-  'Haryana',
-  'Himachal Pradesh',
-  'Jharkhand',
-  'Karnataka',
-  'Kerala',
-  'Madhya Pradesh',
-  'Maharashtra',
-  'Manipur',
-  'Meghalaya',
-  'Mizoram',
-  'Nagaland',
-  'Odisha',
-  'Punjab',
-  'Rajasthan',
-  'Sikkim',
-  'Tamil Nadu',
-  'Telangana',
-  'Tripura',
-  'Uttar Pradesh',
-  'Uttarakhand',
-  'West Bengal',
-  'Andaman and Nicobar Islands',
-  'Chandigarh',
-  'Dadra and Nagar Haveli and Daman and Diu',
-  'Delhi',
-  'Jammu and Kashmir',
-  'Ladakh',
-  'Lakshadweep',
-  'Puducherry',
-];
-
 const heardAboutOptions = [
   'NASSCOM event or communication',
   'CII or FICCI network',
@@ -188,14 +149,11 @@ export function GetStartedRequestForm() {
     e.preventDefault();
     const form = e.currentTarget;
 
-    const submitter = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
-    const submissionType = submitter?.value === 'draft' ? 'draft' : 'submitted';
-
     setStatus('saving');
     setMessage('');
 
     const formData = new FormData(form);
-    formData.set('submissionType', submissionType);
+    formData.set('submissionType', 'submitted');
     formData.delete('companyDocument');
     formData.delete('requirementDocument');
     formData.delete('companyDocuments');
@@ -216,13 +174,11 @@ export function GetStartedRequestForm() {
 
     if (res.ok) {
       setStatus('success');
-      setMessage(submissionType === 'draft' ? 'Draft saved successfully.' : 'Request submitted successfully.');
-      if (submissionType === 'submitted') {
-        form.reset();
-        setCompanyFiles([]);
-        setRequirementFiles([]);
-        setFileError({ company: '', requirement: '' });
-      }
+      setMessage('Request submitted successfully.');
+      form.reset();
+      setCompanyFiles([]);
+      setRequirementFiles([]);
+      setFileError({ company: '', requirement: '' });
     } else {
       const data = await res.json().catch(() => ({}));
       setStatus('error');
@@ -259,10 +215,10 @@ export function GetStartedRequestForm() {
                 <div className="md:col-span-2"><label htmlFor="companyAddress1" className="block text-sm font-medium text-gray-700 mb-1">Street Address 1 *</label><input id="companyAddress1" name="companyAddress1" required placeholder="Building no., street name" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div className="md:col-span-2"><label htmlFor="companyAddress2" className="block text-sm font-medium text-gray-700 mb-1">Street Address 2</label><input id="companyAddress2" name="companyAddress2" placeholder="Area, locality, landmark (optional)" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div><label htmlFor="companyCity" className="block text-sm font-medium text-gray-700 mb-1">City *</label><input id="companyCity" name="companyCity" required placeholder="City" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="companyState" className="block text-sm font-medium text-gray-700 mb-1">State / Union Territory *</label><select id="companyState" name="companyState" required defaultValue="" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50"><option value="" disabled>Select state / UT</option>{indiaStatesAndUTs.map((state) => <option key={state} value={state}>{state}</option>)}</select></div>
-                <div><label htmlFor="companyPin" className="block text-sm font-medium text-gray-700 mb-1">PIN Code *</label><input id="companyPin" name="companyPin" required maxLength={6} inputMode="numeric" pattern="[0-9]{6}" placeholder="6-digit PIN code" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="companyCountry" className="block text-sm font-medium text-gray-700 mb-1">Country *</label><input id="companyCountry" name="companyCountry" required defaultValue="India" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div className="md:col-span-2"><label htmlFor="cin" className="block text-sm font-medium text-gray-700 mb-1">CIN / Registration Number *</label><input id="cin" name="cin" required placeholder="Company Identification Number" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="companyState" className="block text-sm font-medium text-gray-700 mb-1">State / Province / Region *</label><input id="companyState" name="companyState" required placeholder="State / Province / Region" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="companyPin" className="block text-sm font-medium text-gray-700 mb-1">Postal / ZIP Code *</label><input id="companyPin" name="companyPin" required maxLength={12} placeholder="Postal / ZIP code" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="companyCountry" className="block text-sm font-medium text-gray-700 mb-1">Country *</label><input id="companyCountry" name="companyCountry" required placeholder="Country" onChange={handleCompanyAddressChange} className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div className="md:col-span-2"><label htmlFor="cin" className="block text-sm font-medium text-gray-700 mb-1">CIN / Registration Number</label><input id="cin" name="cin" placeholder="Company Identification Number" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
               </div>
             </div>
 
@@ -299,9 +255,9 @@ export function GetStartedRequestForm() {
                 <div className="md:col-span-2"><label htmlFor="billingAddress1" className="block text-sm font-medium text-gray-700 mb-1">Street Address 1 *</label><input id="billingAddress1" name="billingAddress1" required placeholder="Building no., street name" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div className="md:col-span-2"><label htmlFor="billingAddress2" className="block text-sm font-medium text-gray-700 mb-1">Street Address 2</label><input id="billingAddress2" name="billingAddress2" placeholder="Area, locality, landmark (optional)" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
                 <div><label htmlFor="billingCity" className="block text-sm font-medium text-gray-700 mb-1">City *</label><input id="billingCity" name="billingCity" required placeholder="City" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="billingState" className="block text-sm font-medium text-gray-700 mb-1">State / Union Territory *</label><select id="billingState" name="billingState" required defaultValue="" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50"><option value="" disabled>Select state / UT</option>{indiaStatesAndUTs.map((state) => <option key={`billing-${state}`} value={state}>{state}</option>)}</select></div>
-                <div><label htmlFor="billingPin" className="block text-sm font-medium text-gray-700 mb-1">PIN Code *</label><input id="billingPin" name="billingPin" required maxLength={6} inputMode="numeric" pattern="[0-9]{6}" placeholder="6-digit PIN code" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
-                <div><label htmlFor="billingCountry" className="block text-sm font-medium text-gray-700 mb-1">Country *</label><input id="billingCountry" name="billingCountry" required defaultValue="India" className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="billingState" className="block text-sm font-medium text-gray-700 mb-1">State / Province / Region *</label><input id="billingState" name="billingState" required placeholder="State / Province / Region" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="billingPin" className="block text-sm font-medium text-gray-700 mb-1">Postal / ZIP Code *</label><input id="billingPin" name="billingPin" required maxLength={12} placeholder="Postal / ZIP code" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
+                <div><label htmlFor="billingCountry" className="block text-sm font-medium text-gray-700 mb-1">Country *</label><input id="billingCountry" name="billingCountry" required placeholder="Country" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cluso-mid/50" /></div>
               </div>
               <p className="text-sm text-gray-600 rounded-xl bg-amber-50 border border-amber-200 p-4">For GST compliance, invoice will include your GSTIN. Ensure billing state matches your GST registration state.</p>
             </div>
@@ -369,8 +325,7 @@ export function GetStartedRequestForm() {
             <div className="rounded-xl border border-cluso-sky/20 bg-cluso-sky/10 p-4 text-sm text-slate-700">For a complete list of services and pricing, please contact your Cluso account representative.</div>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-end">
-              <button type="submit" value="draft" formNoValidate disabled={status === 'saving'} className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-60">{status === 'saving' ? 'Saving...' : 'Save Draft'}</button>
-              <button type="submit" value="submitted" disabled={status === 'saving'} className="rounded-xl border border-cluso-green/40 bg-cluso-green px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-600 disabled:opacity-60">{status === 'saving' ? 'Submitting...' : 'Submit Request ->'}</button>
+              <button type="submit" disabled={status === 'saving'} className="rounded-xl border border-cluso-green/40 bg-cluso-green px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-600 disabled:opacity-60">{status === 'saving' ? 'Submitting...' : 'Submit Request ->'}</button>
             </div>
           </form>
         </div>

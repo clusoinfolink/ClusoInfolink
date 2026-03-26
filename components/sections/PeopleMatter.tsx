@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Heart, ShieldCheck } from 'lucide-react';
-import peopleFirstImage from '@/assets/People First.png';
+import peopleFirstImage from '@/assets/Your Safety & Trust, Our Priority.jpg';
 
 export function PeopleMatter() {
   return (

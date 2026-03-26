@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { GlassButton } from '@/components/ui/GlassButton';
-import heroBG from '@/assets/HeroBG.png';
+import heroBG from '@/assets/Back 3.jpg';
 
 const FALLBACK_HERO_BACKGROUND_IMAGE = heroBG;
 

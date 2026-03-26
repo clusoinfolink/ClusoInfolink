@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { Zap } from 'lucide-react';
-import speedImage from '@/assets/Speed.png';
+import speedImage from '@/assets/Our Software Prioritizes Speed, Efficiency, Ensuring Precise Insights..jpg';
 
 export function SoftwareSpeed() {
   return (

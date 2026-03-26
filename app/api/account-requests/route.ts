@@ -24,7 +24,6 @@ function missingRequired(body: Record<string, unknown>) {
     'companyCity',
     'companyState',
     'companyPin',
-    'cin',
     'invoiceEmail',
     'billingAddress1',
     'billingCity',
@@ -62,7 +61,7 @@ export async function POST(req: NextRequest) {
       companyCity: getString('companyCity'),
       companyState: getString('companyState'),
       companyPin: getString('companyPin'),
-      companyCountry: getString('companyCountry') || 'India',
+      companyCountry: getString('companyCountry'),
       gstin: getString('gstin'),
       cin: getString('cin'),
 
@@ -73,7 +72,7 @@ export async function POST(req: NextRequest) {
       billingCity: getString('billingCity'),
       billingState: getString('billingState'),
       billingPin: getString('billingPin'),
-      billingCountry: getString('billingCountry') || 'India',
+      billingCountry: getString('billingCountry'),
 
       firstName: getString('firstName'),
       lastName: getString('lastName'),
@@ -176,7 +175,7 @@ export async function POST(req: NextRequest) {
       companyCity: String(body.companyCity || ''),
       companyState: String(body.companyState || ''),
       companyPin: String(body.companyPin || ''),
-      companyCountry: String(body.companyCountry || 'India'),
+      companyCountry: String(body.companyCountry || ''),
       gstin: String(body.gstin || ''),
       cin: String(body.cin || ''),
       companyDocumentName: companyDocumentNames[0] || '',
@@ -191,7 +190,7 @@ export async function POST(req: NextRequest) {
       billingCity: String(body.billingCity || ''),
       billingState: String(body.billingState || ''),
       billingPin: String(body.billingPin || ''),
-      billingCountry: String(body.billingCountry || 'India'),
+      billingCountry: String(body.billingCountry || ''),
 
       firstName: String(body.firstName || ''),
       lastName: String(body.lastName || ''),

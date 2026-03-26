@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { Layers } from 'lucide-react';
-import seamlessIntegrationImage from '@/assets/Cluso Seamless Integration gold.png';
+import seamlessIntegrationImage from '@/assets/Cluso Emerges As The Ideal Solution For All Your Business Requirements..jpg';
 
 export function SoftwareVersatility() {
   return (

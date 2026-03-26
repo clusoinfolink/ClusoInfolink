@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Facebook, Twitter, Youtube, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import { getSiteSettings } from '@/lib/settings';
 
 const footerLinks = {
@@ -21,7 +21,6 @@ export async function Footer() {
 
   const socialIcons = [
     { key: 'facebook', icon: Facebook, label: 'Facebook', href: settings.socialLinks.facebook },
-    { key: 'twitter', icon: Twitter, label: 'Twitter', href: settings.socialLinks.twitter },
     { key: 'linkedin', icon: Linkedin, label: 'LinkedIn', href: settings.socialLinks.linkedin },
     { key: 'instagram', icon: Instagram, label: 'Instagram', href: settings.socialLinks.instagram },
   ].filter((s) => s.href);

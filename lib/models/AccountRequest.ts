@@ -8,7 +8,7 @@ const AccountRequestSchema = new Schema(
     companyCity: { type: String, default: '' },
     companyState: { type: String, default: '' },
     companyPin: { type: String, default: '' },
-    companyCountry: { type: String, default: 'India' },
+    companyCountry: { type: String, default: '' },
     gstin: { type: String, default: '' },
     cin: { type: String, default: '' },
     companyDocumentName: { type: String, default: '' },
@@ -23,7 +23,7 @@ const AccountRequestSchema = new Schema(
     billingCity: { type: String, default: '' },
     billingState: { type: String, default: '' },
     billingPin: { type: String, default: '' },
-    billingCountry: { type: String, default: 'India' },
+    billingCountry: { type: String, default: '' },
 
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },

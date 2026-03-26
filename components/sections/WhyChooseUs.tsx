@@ -4,8 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { SectionHeading } from '@/components/common/SectionHeading';
-import { GlassButton } from '@/components/ui/GlassButton';
-import empoweringTrustImage from '@/assets/Empowring trust image.png';
+import empoweringTrustImage from '@/assets/Why Choose Our Services.jpg';
 
 export function WhyChooseUs() {
   return (
@@ -34,7 +33,6 @@ export function WhyChooseUs() {
                 <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
                   Empowering Trust Through Comprehensive Insights.
                 </h3>
-                <GlassButton variant="ghost">Investor stories</GlassButton>
               </div>
             </div>
           </AnimatedSection>
