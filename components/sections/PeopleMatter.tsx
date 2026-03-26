@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { AnimatedSection } from '@/components/common/AnimatedSection';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Heart, ShieldCheck } from 'lucide-react';
-import peopleFirstImage from '@/assets/Your Safety & Trust, Our Priority.jpg';
+import peopleFirstImage from '@/assets/Trust And Accuracy Are Our Top Priorities. We Are Committed To Delivering Exceptional Customer Service And Ensuring Compliance With All Relevant Regulations.jpg';
 
 export function PeopleMatter() {
   return (

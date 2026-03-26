@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Shield, Eye, Target, Award, Clock, Users } from 'lucide-react';
-import ourMissionImage from '@/assets/Our Mission.jpg';
+import ourMissionImage from '@/assets/Our Mission.png';
 
 export const metadata: Metadata = {
   title: 'About Us — Cluso Infolink',
