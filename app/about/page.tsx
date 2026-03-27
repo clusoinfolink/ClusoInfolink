@@ -43,12 +43,17 @@ const values = [
 ];
 
 const milestones = [
-  { year: '2018', event: 'Cluso Infolink founded with a mission to bring transparency to background verification.' },
-  { year: '2019', event: 'Expanded services to include employment, education, and identity verification.' },
-  { year: '2020', event: 'Launched automated screening platform, reducing turnaround time by 70%.' },
-  { year: '2021', event: 'Crossed 10,000 successful verifications with 99.8% accuracy rate.' },
-  { year: '2022', event: 'Expanded operations across India with regional compliance teams.' },
-  { year: '2023', event: 'Introduced AI-powered verification and real-time monitoring capabilities.' },
+  { year: '2007', event: 'Cluso Infolink started its journey with a mission to bring transparency to verification.' },
+  { year: '2009', event: 'Built a structured process for identity and address verification checks.' },
+  { year: '2011', event: 'Expanded into employment and education verification for business clients.' },
+  { year: '2013', event: 'Introduced stronger quality review workflows to improve consistency and accuracy.' },
+  { year: '2015', event: 'Strengthened compliance practices and documentation standards across all services.' },
+  { year: '2017', event: 'Scaled operations to support larger verification volumes with reliable turnaround.' },
+  { year: '2019', event: 'Digitized core workflows to speed up case processing and reporting transparency.' },
+  { year: '2021', event: 'Crossed major verification milestones with high client trust and repeat partnerships.' },
+  { year: '2023', event: 'Introduced smart automation and real-time tracking for faster status visibility.' },
+  { year: '2025', event: 'Expanded nationwide support with stronger regional execution and service coverage.' },
+  { year: '2026', event: 'Present: Continuing to innovate with technology and people-first verification processes.' },
 ];
 
 export default async function AboutPage() {
